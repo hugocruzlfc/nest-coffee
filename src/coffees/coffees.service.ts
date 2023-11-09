@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCoffeeInput } from './dto/create-coffee.input/create-coffee.input';
+import { CreateCoffeeInput } from './dto/create-coffee.input';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Coffee } from './entities/coffee.entity/coffee.entity';
+import { Coffee } from './entities/coffee.entity';
 import { Repository } from 'typeorm';
-import { UpdateCoffeeInput } from './dto/update-coffee.input/update-coffee.input';
+import { UpdateCoffeeInput } from './dto/update-coffee.input';
 import { UserInputError } from 'apollo-server-express';
-import { Flavor } from './entities/flavor.entity/flavor.entity';
+import { Flavor } from './entities/flavor.entity';
 
 @Injectable()
 export class CoffeesService {

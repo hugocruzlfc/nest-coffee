@@ -16,7 +16,10 @@ type Coffee {
   name: String!
   brand: String!
   flavors: [Flavor!]!
+  createdAt: Date
 }
+
+scalar Date
 
 type Query {
   coffees: [Coffee!]!

@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Coffee } from '../coffee.entity/coffee.entity';
+import { Coffee } from './coffee.entity';
 
 @Entity()
 @ObjectType({ description: 'Object representing a flavor' })

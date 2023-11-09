@@ -1,12 +1,13 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Flavor } from '../flavor.entity/flavor.entity';
+import { Flavor } from './flavor.entity';
 
 @Entity()
 @ObjectType({ description: 'Object representing a coffee' })
@@ -25,4 +26,7 @@ export class Coffee {
   @JoinTable()
   @ManyToMany((type) => Flavor, (flavor) => flavor.coffees, { cascade: true })
   flavors?: Flavor[];
+
+  @CreateDateColumn()
+  createdAt?: Date;
 }
