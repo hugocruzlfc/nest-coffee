@@ -2,13 +2,9 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""
-Object representing a coffee
-"""
+"""Object representing a coffee"""
 type Coffee {
-  """
-  Id of the coffee
-  """
+  """Id of the coffee"""
   id: ID!
   name: String!
   brand: String!
@@ -24,13 +20,9 @@ type Mutation {
   createCoffee(createCoffeeInput: CreateCoffeeInput!): Coffee
 }
 
-"""
-Input type for creating a coffee
-"""
+"""Input type for creating a coffee"""
 input CreateCoffeeInput {
-  """
-  A new coffee
-  """
+  """A new coffee"""
   name: String!
   brand: String!
   flavors: [String!]!

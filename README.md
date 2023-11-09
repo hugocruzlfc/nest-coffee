@@ -49,4 +49,5 @@ $ nest g class coffees/entities/coffee.entity --no-spec
 $ nest g resolver coffees
 
 # Create a service
+$ nest g s coffees
 ```
