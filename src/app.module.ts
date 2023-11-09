@@ -4,11 +4,21 @@ import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
-import { CoffeesResolver } from './coffees/coffees.resolver';
-import { CoffeesService } from './coffees/coffees.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CoffeesModule } from './coffees/coffees.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres', // type of our database
+      host: 'localhost', // database host
+      port: 5432, // database host
+      username: 'postgres', // username
+      password: 'postgres', // user password
+      database: 'postgres', // name of our database,
+      autoLoadEntities: true, // models will be loaded automatically (you don't have to explicitly specify the entities: [] array)
+      synchronize: true, // your entities will be synced with the database(recommended: disable in prod)
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
@@ -16,8 +26,9 @@ import { CoffeesService } from './coffees/coffees.service';
       //   numberScalarMode: 'integer',
       // },
     }),
+    CoffeesModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CoffeesResolver, CoffeesService],
+  providers: [AppService],
 })
 export class AppModule {}
