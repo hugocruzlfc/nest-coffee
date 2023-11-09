@@ -2,13 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""Object representing a flavor"""
+type Flavor {
+  id: ID!
+  name: String!
+  coffees: [Coffee!]!
+}
+
 """Object representing a coffee"""
 type Coffee {
   """Id of the coffee"""
   id: ID!
   name: String!
   brand: String!
-  flavors: [String!]!
+  flavors: [Flavor!]
 }
 
 type Query {

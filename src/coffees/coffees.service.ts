@@ -5,19 +5,22 @@ import { Coffee } from './entities/coffee.entity/coffee.entity';
 import { Repository } from 'typeorm';
 import { UpdateCoffeeInput } from './dto/update-coffee.input/update-coffee.input';
 import { UserInputError } from 'apollo-server-express';
+import { Flavor } from './entities/flavor.entity/flavor.entity';
 
 @Injectable()
 export class CoffeesService {
   constructor(
     @InjectRepository(Coffee)
-    private readonly coffeeRepository: Repository<Coffee>,
+    private readonly coffeesRepository: Repository<Coffee>,
+    @InjectRepository(Flavor)
+    private readonly flavorsRepository: Repository<Flavor>,
   ) {}
   async findAll() {
-    return this.coffeeRepository.find();
+    return this.coffeesRepository.find();
   }
 
   async findOne(id: number) {
-    const coffee = await this.coffeeRepository.findOne({ where: { id } });
+    const coffee = await this.coffeesRepository.findOne({ where: { id } });
     if (!coffee) {
       throw new Error(`Coffee #${id} not found`);
     }
@@ -25,24 +28,48 @@ export class CoffeesService {
   }
 
   async create(createCoffeeInput: CreateCoffeeInput) {
-    const coffee = this.coffeeRepository.create(createCoffeeInput);
-    return this.coffeeRepository.save(coffee);
+    const flavors = await Promise.all(
+      createCoffeeInput.flavors.map((name) => this.preloadFlavorsByName(name)),
+    );
+    const coffee = this.coffeesRepository.create({
+      ...createCoffeeInput,
+      flavors,
+    });
+    return this.coffeesRepository.save(coffee);
   }
 
   async update(id: number, updateCoffeeInput: UpdateCoffeeInput) {
-    const coffee = await this.coffeeRepository.preload({
+    const flavors =
+      updateCoffeeInput.flavors &&
+      (await Promise.all(
+        updateCoffeeInput.flavors.map((name) =>
+          this.preloadFlavorsByName(name),
+        ),
+      ));
+    const coffee = await this.coffeesRepository.preload({
       id,
       ...updateCoffeeInput,
+      flavors,
     });
 
     if (!coffee) {
       throw new UserInputError(`Coffee #${id} not found`);
     }
-    return this.coffeeRepository.save(coffee);
+    return this.coffeesRepository.save(coffee);
   }
 
   async remove(id: number) {
     const coffee = await this.findOne(id);
-    return this.coffeeRepository.remove(coffee);
+    return this.coffeesRepository.remove(coffee);
+  }
+
+  private async preloadFlavorsByName(name: string): Promise<Flavor> {
+    const existingFlavor = await this.flavorsRepository.findOne({
+      where: { name },
+    });
+    if (existingFlavor) {
+      return existingFlavor;
+    }
+    return this.flavorsRepository.create({ name });
   }
 }
