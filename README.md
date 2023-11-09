@@ -48,6 +48,5 @@ $ nest g class coffees/entities/coffee.entity --no-spec
 # Create a resolver
 $ nest g resolver coffees
 
-# test coverage
-$ npm run test:cov
+# Create a service
 ```
