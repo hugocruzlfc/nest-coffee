@@ -1,0 +1,16 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Object representing a coffee"""
+type Coffee {
+  """Id of the coffee"""
+  id: ID!
+  name: String!
+  brand: String!
+  flavors: [String!]!
+}
+
+type Query {
+  coffees: [Coffee!]!
+}

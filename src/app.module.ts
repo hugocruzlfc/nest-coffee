@@ -4,15 +4,19 @@ import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
+import { CoffeesResolver } from './coffees/coffees.resolver';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      // buildSchemaOptions: {
+      //   numberScalarMode: 'integer',
+      // },
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CoffeesResolver],
 })
 export class AppModule {}
