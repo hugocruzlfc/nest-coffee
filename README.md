@@ -52,4 +52,7 @@ $ nest g resolver coffees
 $ nest g s coffees
 $ nest g resolver coffees/coffee-flavors --flat ,  👈🏻 this flag say to CLI to not create a folder and push the resolver to the coffees folder
 
+# Create a module
+$ nest g module new-module-name
+
 ```

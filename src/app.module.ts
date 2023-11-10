@@ -9,6 +9,7 @@ import { CoffeesModule } from './coffees/coffees.module';
 import { DateScalar } from './common/scalars/date.scalar/date.scalar';
 import { Tea } from './teas/entities/tea.entity/tea.entity';
 import { DrinksResolver } from './drinks/drinks.resolver';
+import { PubSubModule } from './pub-sub/pub-sub.module';
 
 @Module({
   imports: [
@@ -30,8 +31,10 @@ import { DrinksResolver } from './drinks/drinks.resolver';
         // dateScalarMode: 'timestamp', // 'isoDate' | 'timestamp'
         orphanedTypes: [Tea],
       },
+      installSubscriptionHandlers: true,
     }),
     CoffeesModule,
+    PubSubModule,
   ],
   controllers: [AppController],
   providers: [AppService, DateScalar, DrinksResolver],
