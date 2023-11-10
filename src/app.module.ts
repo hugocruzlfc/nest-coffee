@@ -22,6 +22,7 @@ import { PubSubModule } from './pub-sub/pub-sub.module';
       database: 'postgres', // name of our database,
       autoLoadEntities: true, // models will be loaded automatically (you don't have to explicitly specify the entities: [] array)
       synchronize: true, // your entities will be synced with the database(recommended: disable in prod)
+      logging: ['query', 'error'],
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

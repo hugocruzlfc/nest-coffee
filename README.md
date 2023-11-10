@@ -55,4 +55,7 @@ $ nest g resolver coffees/coffee-flavors --flat ,  👈🏻 this flag say to CLI
 # Create a module
 $ nest g module new-module-name
 
+# Create a provider
+$ nest g provider coffees/data-loader/flavor-by-coffee.loader
+
 ```
