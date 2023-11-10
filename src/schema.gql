@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+interface Drink {
+  name: String!
+}
+
 """Object representing a flavor"""
 type Flavor {
   id: ID!
@@ -9,19 +13,25 @@ type Flavor {
   coffees: [Coffee!]!
 }
 
-"""Object representing a coffee"""
-type Coffee {
+"""Object representing a coffee model"""
+type Coffee implements Drink {
+  name: String!
+
   """Id of the coffee"""
   id: ID!
-  name: String!
   brand: String!
   flavors: [Flavor!]!
   createdAt: Date
 }
 
+type Tea implements Drink {
+  name: String!
+}
+
 scalar Date
 
 type Query {
+  drinks: [Drink!]!
   coffees: [Coffee!]!
   coffee(id: ID!): Coffee!
 }
