@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Flavor } from './flavor.entity';
 import { Drink } from 'src/common/interfaces/drink.interface/drink.interface';
+import { CoffeeType } from 'src/common/enums/coffe-type.enum';
 
 @Entity()
 @ObjectType({
@@ -33,4 +34,7 @@ export class Coffee implements Drink {
 
   @CreateDateColumn()
   createdAt?: Date;
+
+  @Column({ nullable: true })
+  type: CoffeeType;
 }
